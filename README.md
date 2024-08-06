@@ -3,10 +3,10 @@
 ## Gemini API Developer Competition
 
 ### The Team
-- Ved Chadderwala
-- Swayam Desai
 - Darshan Patel
 - Divy Awasthi
+- Swayam Desai
+- Ved Chadderwala
 
 ## Introduction
 As a user, consuming and engaging with video content is very important in this fast-moving digital world today. Utilizing the Gemini API, we have developed an innovative and user-engaging application that allows users to watch YouTube videos without going through the entire length of the video. This will help in not only best content interaction but also saving time which is far precious.

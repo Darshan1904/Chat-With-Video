@@ -1,22 +1,18 @@
 from flask import Blueprint, request, jsonify
-# from .gemini_client import query_gemini
-
+from . import transcibe
 bp = Blueprint('main', __name__)
 
-@bp.route("/hello",methods=["GET"])
+@bp.route("/hello", methods=["GET"])
 def hello():
     return "hello world"
 
-
-# @bp.route('/ask', methods=['POST'])
-# def ask_gemini():
-#     data = request.json
-#     question = data.get('question')
-    
-#     if not question:
-#         return jsonify({'error': 'No question provided'}), 400
-
-#     response = query_gemini(question)
-    
-#     return jsonify(response)
-
+@bp.route('/transcribe', methods=['POST'])
+def transcribe():
+    data = request.json
+    videoURL = data.get('videoURL')
+    # print(videoURL)
+    if not videoURL:
+        return jsonify({'error': "No video URL provided"}), 400
+    response = transcibe.transcribe_summarise(videoURL)  # Ensure this function is defined somewhere
+    # print(response,type(response))
+    return jsonify(response)

@@ -6,3 +6,4 @@ sentence-transformers==3.0.1
 python-dotenv
 pypdf
 langchain_google_genai
+youtube_transcript_api

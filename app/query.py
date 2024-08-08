@@ -1,61 +1,75 @@
+# functions.py
 from langchain_groq import ChatGroq
 from langchain.chains import RetrievalQA
 from langchain_google_genai import GoogleGenerativeAIEmbeddings
 from langchain_community.vectorstores import FAISS
 import os
+from . import transcribe
+# Load environment variables
 from dotenv import load_dotenv
-
 load_dotenv()
 
 GOOGLE_API_KEY = os.getenv('GOOGLE_API_KEY')
 GROQ_API_KEY = os.getenv('GROQ_API_KEY')
-
-transcript = """Illegitimate access detection systems in hospital logs perform post hoc detection instead of runtime access restriction to allow widespread access in emergencies. We study the effectiveness of adversarial machine learning strategies against such detection systems on a large-scale dataset consisting of a year of access logs at a major hospital. We study a range of
-graph-based anomaly detection systems, including heuristicbased and Graph Neural Network (GNN)-based models. We
-find that evasion attacks, in which covering accesses (that is,
-accesses made to disguise a target access) are injected during
-evaluation period of the target access, can successfully fool
-the detection system. We also show that such evasion attacks
-can transfer among different detection algorithms. On the
-other hand, we find that poisoning attacks, in which adversaries inject covering accesses during the training phase of
-the model, do not effectively mislead the trained detection
-system unless the attacker is given unrealistic capabilities
-such as injecting over 10,000 accesses or imposing a high
-weight on the covering accesses in the training algorithm.
-To examine the generalizability of the results, we also apply
-our attack against a state-of-the-art detection model on the
-LANL network lateral movement dataset, and observe similar
-conclusions."""
-
-# Initialize the embeddings model
+TRANSCRIPT_FILE_PATH = './current_transcript.txt'
+# Initialize embeddings and LLM
 embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
-# Generate embeddings for the transcript
-transcript_embeddings = embeddings.embed_documents([transcript])
-
-# Initialize the FAISS vector store with the embeddings
-vectorDB = FAISS.from_texts([transcript], embeddings)
-
-# Retrieve the retriever from the vector store
-retriever = vectorDB.as_retriever()
-
-# Initialize the LLM
 llm = ChatGroq(
     model="llama-3.1-70b-versatile",
     temperature=0
 )
 
-# Create a Q&A chain
-QA_chain = RetrievalQA.from_chain_type(
-    llm=llm,
-    chain_type="stuff",
-    retriever=retriever,
-    return_source_documents=True
-)
+# In-memory store for the current transcript and its vector database
+current_transcript = None
+qa_chain = None
 
-# Invoke the Q&A chain and get a response for user query
-query = "suggest a topic for this text"
+def initialize_qa_chain(transcript):
+    """Initialize the QA chain with the given transcript."""
+    vectorDB = FAISS.from_texts([transcript], embeddings)
+    retriever = vectorDB.as_retriever()
+    QA_chain = RetrievalQA.from_chain_type(
+        llm=llm,
+        chain_type="stuff",
+        retriever=retriever,
+        return_source_documents=True
+    )
+    return QA_chain
 
-response = QA_chain.invoke({"query": query})
+def write_transcript_to_file(transcript):
+    """Write the transcript to a file."""
+    with open(TRANSCRIPT_FILE_PATH, 'w') as file:
+        file.write(transcript)
 
-# Print the response
-print(response["result"])
+def read_transcript_from_file():
+    """Read the transcript from a file."""
+    if os.path.exists(TRANSCRIPT_FILE_PATH):
+        with open(TRANSCRIPT_FILE_PATH, 'r') as file:
+            return file.read()
+    return None
+
+def transcribe_and_store(videoURL):
+    """Transcribe and summarize the video, then store it."""
+    global current_transcript, qa_chain
+    result = transcribe.transcribe_func(videoURL)
+    if 'Error' in result:
+        return result
+    transcript = result['summary']
+    write_transcript_to_file(transcript)
+    current_transcript = transcript
+    qa_chain = initialize_qa_chain(transcript)
+    response = qa_chain.invoke({'query':'summarise the above information in 10 lines'})
+    return {'summary':response['result']}
+
+def query_transcript(user_query):
+    """Query the stored transcript."""
+    transcript = read_transcript_from_file()
+    
+    if not transcript:
+        return {'error': "No transcript available"}
+
+    
+    qa_chain = initialize_qa_chain(transcript)
+    
+    response = qa_chain.invoke({"query": user_query})
+    return {'result': response["result"]}
+

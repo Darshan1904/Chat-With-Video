@@ -22,6 +22,7 @@ def transcribe():
 def q():
     data = request.json
     qu = data.get('query')
+    prompt = "Answer as if you are answering by analyzing the video only not it's transcribe " + qu
     if not qu : return jsonify({'error' : 'Please enter a query'})
-    response = query.query_transcript(qu)
+    response = query.query_transcript(prompt)
     return jsonify(response)

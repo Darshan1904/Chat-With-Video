@@ -7,3 +7,4 @@ python-dotenv
 pypdf
 langchain_google_genai
 gunicorn
+youtube_transcript_api

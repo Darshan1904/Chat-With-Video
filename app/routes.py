@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from . import query
+from . import query 
 bp = Blueprint('main', __name__)
 
 @bp.route("/hello", methods=["GET"])

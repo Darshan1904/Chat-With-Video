@@ -1,10 +1,5 @@
-from dotenv import load_dotenv
-import os
 from youtube_transcript_api import YouTubeTranscriptApi
-from youtube_transcript_api.formatters import JSONFormatter
 
-# Load environment variables
-load_dotenv()
 
 def videoID(url):
     id = ''

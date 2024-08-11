@@ -9,6 +9,8 @@ from . import transcribe
 from dotenv import load_dotenv
 load_dotenv()
 
+current_transcript = None
+
 GOOGLE_API_KEY = os.getenv('GOOGLE_API_KEY')
 GROQ_API_KEY = os.getenv('GROQ_API_KEY')
 TRANSCRIPT_FILE_PATH = './current_transcript.txt'
@@ -48,28 +50,19 @@ def read_transcript_from_file():
     return None
 
 def transcribe_and_store(videoURL):
-    """Transcribe and summarize the video, then store it."""
-    global current_transcript, qa_chain
+    global current_transcript
     result = transcribe.transcribe_func(videoURL)
     if 'Error' in result:
         return result
-    transcript = result['summary']
-    write_transcript_to_file(transcript)
-    current_transcript = transcript
-    qa_chain = initialize_qa_chain(transcript)
+    current_transcript = result['summary']
+    qa_chain = initialize_qa_chain(current_transcript)
     response = qa_chain.invoke({'query':'summarise the above information in 10 lines'})
     return {'summary':response['result']}
 
 def query_transcript(user_query):
-    """Query the stored transcript."""
-    transcript = read_transcript_from_file()
-    
-    if not transcript:
+    global current_transcript
+    if not current_transcript:
         return {'error': "No transcript available"}
-
-    
-    qa_chain = initialize_qa_chain(transcript)
-    
+    qa_chain = initialize_qa_chain(current_transcript)
     response = qa_chain.invoke({"query": user_query})
     return {'result': response["result"]}
-

@@ -36,21 +36,3 @@ def q():
     response = query.query_transcript(prompt)
     return jsonify(response)
 
-
-def get_transcript_alternative(video_id):
-    url = f"https://www.youtube.com/watch?v={video_id}"
-    response = requests.get(url)
-    if response.status_code == 200:
-        for line in response.text.split('\n'):
-            if '"captions":' in line:
-                captions_json = line.split('"captions":')[1].split(',"videoDetails')[0]
-                captions_data = json.loads(captions_json)
-                # Process captions_data to extract transcript
-                # This will require some parsing work
-                return captions_data
-    return "Couldn't fetch transcript"
-
-@bp.route('/test_transcript/<video_id>', methods=['GET'])
-def test_transcript(video_id):
-    result = get_transcript_alternative(video_id)
-    return jsonify({'result': result})

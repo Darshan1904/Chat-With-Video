@@ -1,6 +1,5 @@
 from youtube_transcript_api import YouTubeTranscriptApi
 
-
 def videoID(url):
     id = ''
     for char in url[::-1]:
@@ -11,13 +10,13 @@ def videoID(url):
 
 def transcribe_func(videoURL):
     try:
-        # Fetch the transcript
         video_id = videoID(videoURL)
+        print(f"Attempting to fetch transcript for video ID: {video_id}")
         transcript = YouTubeTranscriptApi.get_transcript(video_id)
         
-        # Convert transcript to a single text string
         text = ' '.join([entry['text'] for entry in transcript])
-        return {'summary':text}
+        return {'summary': text}
     except Exception as e:
+        print(f"Error fetching transcript: {str(e)}")
         return {'Error': str(e)}
 

@@ -1,5 +1,6 @@
 from flask import Blueprint, request, jsonify
 from . import query 
+
 bp = Blueprint('main', __name__)
 
 @bp.route("/hello", methods=["GET"])
@@ -10,11 +11,16 @@ def hello():
 def transcribe():
     data = request.json
     videoURL = data.get('videoURL')
-    # print(videoURL)
     if not videoURL:
         return jsonify({'error': "No video URL provided"}), 400
-    response = query.transcribe_and_store(videoURL)  # Ensure this function is defined somewhere
-    # print(response,type(response))
+    
+    print(f"Received transcription request for URL: {videoURL}")
+    response = query.transcribe_and_store(videoURL)
+    
+    if 'Error' in response:
+        print(f"Transcription error: {response['Error']}")
+        return jsonify(response), 500
+    
     return jsonify(response)
 
 

@@ -1,5 +1,6 @@
 from flask import Blueprint, request, jsonify
 from . import query 
+from youtube_transcript_api import YouTubeTranscriptApi
 
 bp = Blueprint('main', __name__)
 
@@ -32,3 +33,11 @@ def q():
     if not qu : return jsonify({'error' : 'Please enter a query'})
     response = query.query_transcript(prompt)
     return jsonify(response)
+
+@bp.route('/test_transcript/<video_id>', methods=['GET'])
+def test_transcript(video_id):
+    try:
+        transcript = YouTubeTranscriptApi.get_transcript(video_id)
+        return jsonify({'status': 'success', 'transcript': transcript[:100]})  # Return first 100 chars
+    except Exception as e:
+        return jsonify({'status': 'error', 'message': str(e)})

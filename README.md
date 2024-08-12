@@ -29,7 +29,7 @@ The consumption of video content is at an all-time high, and users are strugglin
 
 This project consists of a Flask API server, a Flutter mobile application, and a Streamlit web frontend. Below are the steps to run each component of the project:
 
-### Running the Flask API Server
+### 1.Running the Flask API Server
 
 The `run.py` file starts a server where the API is hosted. To start the server, follow these steps:
 
@@ -38,6 +38,16 @@ The `run.py` file starts a server where the API is hosted. To start the server, 
 
    ```bash
    python run.py
+   
+### 2. Accesing Web FrontEnd
+
+The `frontend.py` file serves as a local host where you can see the web app. To start the server, follow these steps:
+
+1. Navigate to the directory containing `frontend.py`.
+2. Use the following command to start the server:
+
+   ```bash
+   streamlit run frontend.py
 
 ## Tech Stack
 - **Frontend:** Streamlit, supporting chat backup history

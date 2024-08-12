@@ -9,7 +9,7 @@
 - Ved Chadderwala
 
 ## Introduction
-As a user, consuming and engaging with video content is very important in this fast-moving digital world today. Utilizing the Gemini API, we have developed an innovative and user-engaging application that allows users to watch YouTube videos without going through the entire length of the video. This will help in not only best content interaction but also saving time which is far precious.
+As a user, consuming and engaging with video content is very important in this fast-moving digital world today. Utilizing the Gemini API, we have developed an innovative and user-engaging application that allows users to watch YouTube videos without going through the entire length of the video. This will help in not only best content interaction but also saving far precious time.
 
 ## Background
 The consumption of video content is at an all-time high, and users are struggling to keep up with the information overload. Our app reaches a middle ground where we represent video data in terms of simple reading so anyone can quickly get an overview. The screens, in this framework, work with the will of users who want to understand more quickly what a video is about and interact better than your content.
@@ -21,6 +21,9 @@ The consumption of video content is at an all-time high, and users are strugglin
    And then using the Gemini API to create summaries of it. This breaks the content down to its essence, so users can grasp what matters without watching a whole video.
 3. **Interactive Platform**  
    The content of each paper is then summarized and displayed in a user-friendly interface created using Streamlit. Users interact via a chat using the Gemini API to query information regarding the content of videos. This interaction occurs in real time, improving the user experience and making it more accessible.
+
+## Running/Testing
+- **Flutter** - Run as usual - but the backend server needs to be started on the local server at the designated port. So, first run the server using 'python run.py' command and then use the app.
 
 ## Tech Stack
 - **Frontend:** Streamlit, supporting chat backup history

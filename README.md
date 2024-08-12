@@ -22,7 +22,6 @@ The consumption of video content is at an all-time high, and users are strugglin
 3. **Interactive Platform**  
    The content of each paper is then summarized and displayed in a user-friendly interface created using Streamlit. Users interact via a chat using the Gemini API to query information regarding the content of videos. This interaction occurs in real time, improving the user experience and making it more accessible.
 
-## Running/Testing
 - **Flutter** - Run as usual - but the backend server needs to be started on the local server at the designated port. So, first run the server using 'python run.py' command and then use the app.
 
 ## Getting Started
@@ -48,6 +47,9 @@ The `frontend.py` file serves as a local host where you can see the web app. To 
 
    ```bash
    streamlit run frontend.py
+   
+### 3. Running Flutter App
+- **Flutter** - Run as usual - but the backend server needs to be started on the local server at the designated port. So, first run the server using `python run.py` command and then use the app.
 
 ## Tech Stack
 - **Frontend:** Streamlit, supporting chat backup history

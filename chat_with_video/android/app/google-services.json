@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "249655633617",
+    "project_id": "geminigeeks-86f4c",
+    "storage_bucket": "geminigeeks-86f4c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:249655633617:android:61b549394a0924333947f0",
+        "android_client_info": {
+          "package_name": "com.example.chat_with_video"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCBDhxkZ7d0CqXBKLK5_2PzwJv2C8iZ_HA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,4 +1,4 @@
-# Chat with Video - Engage Smarter, Not Longer
+# Smart Stream - Engage Smarter, Not Longer
 
 ## Gemini API Developer Competition
 

@@ -29,3 +29,9 @@ The consumption of video content is at an all-time high, and users are strugglin
 - **Transcripts:** Groq API, Assembly API
 
 This documentation outlines the framework and functionalities of our application, which is designed to streamline the way users interact with video content, making it an efficient and time-saving tool in the digital media landscape.
+
+## Flutter Application Extension
+
+In addition to the web-based platform, we've extended these features into a Flutter application, bringing the same powerful capabilities to mobile users. The Flutter app provides a seamless user experience with Firebase authentication, ensuring secure and personalized access. Users can log in, browse summarized video content, and interact with the app just as they would on the web version, making Smart Stream a versatile tool for efficient video consumption across platforms.
+
+This documentation outlines the framework and functionalities of our application, designed to streamline video content interaction, making it an efficient and time-saving tool in today's digital media landscape.

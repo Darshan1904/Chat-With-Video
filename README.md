@@ -25,6 +25,20 @@ The consumption of video content is at an all-time high, and users are strugglin
 ## Running/Testing
 - **Flutter** - Run as usual - but the backend server needs to be started on the local server at the designated port. So, first run the server using 'python run.py' command and then use the app.
 
+## Getting Started
+
+This project consists of a Flask API server, a Flutter mobile application, and a Streamlit web frontend. Below are the steps to run each component of the project:
+
+### Running the Flask API Server
+
+The `run.py` file starts a server where the API is hosted. To start the server, follow these steps:
+
+1. Navigate to the directory containing `run.py`.
+2. Use the following command to start the server:
+
+   ```bash
+   python run.py
+
 ## Tech Stack
 - **Frontend:** Streamlit, supporting chat backup history
 - **Authentication and Storage:** Firebase
